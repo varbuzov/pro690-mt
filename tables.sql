@@ -1,0 +1,5 @@
+CREATE TABLE Notes (
+    id INT PRIMARY KEY IDENTITY(1,1),
+    name NVARCHAR(50),
+    note NVARCHAR(MAX)
+);
