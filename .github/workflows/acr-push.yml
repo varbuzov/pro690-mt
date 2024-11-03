@@ -1,0 +1,24 @@
+name: Deploy to Azure CR
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: azure/docker-login@v2
+        with:
+          login-server: pro690mtacr01.azurecr.io
+          username: ${{ secrets.REGISTRY_USERNAME }}
+          password: ${{ secrets.REGISTRY_PASSWORD }}
+          
+      - run: |
+          docker build . -t pro690mtacr01.azurecr.io/notesapp:${{ github.sha }}
+          docker push pro690mtacr01.azurecr.io/notesapp:${{ github.sha }}
